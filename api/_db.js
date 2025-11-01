@@ -5,6 +5,8 @@ let pool
 export async function getPool() {
   if (pool) return pool
 
+  validateRequiredEnv()
+
   pool = mysql.createPool({
     host: process.env.DB_HOST,
     port: Number(process.env.DB_PORT || 3306),
@@ -20,6 +22,17 @@ export async function getPool() {
 
   await ensureTables(pool)
   return pool
+}
+
+function validateRequiredEnv() {
+  const required = ['DB_HOST', 'DB_USER', 'DB_PASSWORD', 'DB_NAME']
+  const missing = required.filter((k) => !process.env[k] || String(process.env[k]).trim() === '')
+  if (missing.length > 0) {
+    const hint = 'Set these environment variables in your hosting dashboard (e.g., Vercel → Project → Settings → Environment Variables) and redeploy.'
+    const err = new Error(`Database configuration missing: ${missing.join(', ')}. ${hint}`)
+    err.code = 'DB_CONFIG_MISSING'
+    throw err
+  }
 }
 
 async function ensureTables(pool) {

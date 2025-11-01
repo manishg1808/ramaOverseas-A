@@ -54,7 +54,10 @@ export default async function handler(req, res) {
     return res.status(200).json({ ok: true })
   } catch (e) {
     console.error('API /api/request-callback error:', e)
-    return res.status(500).json({ ok: false, message: 'Server error' })
+    const message = e?.code === 'DB_CONFIG_MISSING'
+      ? 'Server database is not configured. Please try again later.'
+      : 'Server error'
+    return res.status(500).json({ ok: false, message })
   }
 }
 
