@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import CallbackModal from './CallbackModal'
+import AnimatedButton from '../ui/AnimatedButton'
 
 const CTAHelp = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -13,9 +14,9 @@ const CTAHelp = () => {
         <p className="text-white/90 mb-6 max-w-2xl">
           {t('contactPage.headerDesc')}
         </p>
-        <button onClick={() => setIsOpen(true)} className="inline-flex items-center gap-2 bg-white text-slate-900 font-semibold px-6 py-3 rounded-lg shadow hover:shadow-lg transform hover:scale-[1.02] transition">
+        <AnimatedButton onClick={() => setIsOpen(true)}>
           {t('callbackModal.actions.requestCallback')}
-        </button>
+        </AnimatedButton>
       </div>
       <CallbackModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </div>

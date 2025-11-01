@@ -35,7 +35,9 @@ const CallbackModal = ({ isOpen, onClose }) => {
     if (isSubmitting) return
     setIsSubmitting(true)
     try {
-      const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:4000'
+      // Always use same-origin in production builds to avoid localhost calls on Vercel.
+      // During local development, use VITE_API_URL (e.g., http://localhost:4000).
+      const baseUrl = import.meta.env.PROD ? '' : (import.meta.env.VITE_API_URL || 'http://localhost:4000')
       const payload = {
         fullName: formData.fullName,
         phone: formData.phone,
