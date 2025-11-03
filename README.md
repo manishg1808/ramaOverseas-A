@@ -87,6 +87,34 @@ npm run build
 npm run preview
 ```
 
+## 🗄️ Database Setup (MySQL)
+
+Yeh project **MySQL** database use karta hai. Vercel directly MySQL provide nahi karta, lekin aap external MySQL services use kar sakte hain.
+
+### Recommended MySQL Services:
+- **PlanetScale** (Recommended) - MySQL compatible, free tier available
+- **Railway** - Easy setup, MySQL support
+- **Aiven** - Managed MySQL service
+
+### Quick Setup:
+1. PlanetScale (ya koi bhi MySQL service) account banayein
+2. Database create karein
+3. **Vercel Dashboard** → Settings → Environment Variables mein set karein:
+   - `DB_HOST` - Database host
+   - `DB_PORT` - 3306 (MySQL default)
+   - `DB_USER` - Database username
+   - `DB_PASSWORD` - Database password
+   - `DB_NAME` - Database name
+   - `DB_SSL` - true (PlanetScale ke liye)
+
+**Detailed instructions**: See `VERCEL_MYSQL_SETUP.md`
+
+### Database Tables
+- `form` - Contact form submissions (auto-created)
+- `request_callback` - Callback request submissions (auto-created)
+
+**Note**: Tables automatically create ho jayengi pehli API call par!
+
 ## 🌐 Usage
 
 After running `npm run dev`, open your browser and navigate to:

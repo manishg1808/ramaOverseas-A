@@ -24,16 +24,26 @@ export default async function handler(req, res) {
   try {
     const pool = await getPool()
     const { name, company, email, phone, service, message } = value
+    
     const sql = `
       INSERT INTO form (name, company, email, phone, service, message)
       VALUES (:name, :company, :email, :phone, :service, :message)
     `
-    await pool.query(sql, { name, company: company || null, email, phone, service, message })
+    
+    await pool.query(sql, {
+      name,
+      company: company || null,
+      email,
+      phone,
+      service,
+      message
+    })
+    
     return res.status(200).json({ ok: true })
   } catch (e) {
     console.error('API /api/form error:', e)
     const message = e?.code === 'DB_CONFIG_MISSING'
-      ? 'Server database is not configured. Please try again later.'
+      ? 'Database is not configured. Please configure MySQL database in Vercel environment variables.'
       : 'Server error'
     return res.status(500).json({ ok: false, message })
   }
