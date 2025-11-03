@@ -1,0 +1,320 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Contact page: subtle world background + plane animation */
+.world-hero {
+  background-image: radial-gradient(ellipse at center, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 60%), url('../assets/12.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+@keyframes planeFly {
+  0% { transform: translateX(-10vw) translateY(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  50% { transform: translateX(50vw) translateY(-10px) rotate(2deg); }
+  100% { transform: translateX(110vw) translateY(0) rotate(0deg); opacity: 0; }
+}
+
+.plane-path {
+  animation: planeFly 12s linear infinite;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.25));
+  font-size: 28px;
+}
+
+/* Starfield sparkle background (footer) */
+.starfield-sparkle {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgb(0, 0, 0) 50%,
+    rgb(0, 0, 0) 100%
+  );
+  filter: url(#starfield-texture);
+  animation: twinkle 3s ease-in-out infinite;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.75; }
+  50% { opacity: 1; }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00bcd4;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0097a7;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Glassmorphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Softer glass (reduced blur) */
+.glass-soft {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #00bcd4 0%, #009688 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Hover underline animation */
+.hover-underline {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.hover-underline::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: #00bcd4;
+  transition: width 0.3s ease;
+}
+
+.hover-underline:hover::after {
+  width: 100%;
+}
+
+/* Pulse animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Shield icon animation */
+@keyframes shieldGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 5px #00bcd4);
+  }
+  50% {
+    filter: drop-shadow(0 0 20px #00bcd4);
+  }
+}
+
+.shield-icon {
+  animation: shieldGlow 2s ease-in-out infinite;
+}
+
+/* Gradient glow cards (from user's snippet, adapted to CSS classes) */
+.pro-card {
+  --background: linear-gradient(to right, #13b37f 0%, #11a3c8 100%);
+  width: 190px;
+  height: 254px;
+  padding: 0.9px;
+  border-radius: 0.7rem;
+  overflow: visible;
+  background: var(--background);
+  position: relative;
+  z-index: 1;
+}
+
+.pro-card::after {
+  position: absolute;
+  content: "";
+  top: -22px;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  height: 100%;
+  width: 100%;
+  transform: scale(0.76);
+  filter: blur(34.5px);
+  background: var(--background);
+  transition: opacity 0.5s, top 0.5s;
+  opacity: 0.9;
+}
+
+.pro-card-inner {
+  --inner-color: #ffffff;
+  background: var(--inner-color);
+  color: #0f172a;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  border-radius: 0.7rem;
+}
+
+.pro-card-title {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #0f172a;
+}
+
+.pro-card-desc {
+  color: #475569;
+}
+
+.pro-card:hover::after {
+  opacity: 0.6;
+  padding: 0.7rem 0; /* preserved from snippet */
+  top: 18px;
+  transition: 0.6s;
+}
+
+.pro-card:hover .pro-card-inner {
+  color: #fff9f9;
+  transition: color 1s;
+}
+
+/* Logo marquee + badges */
+@keyframes marqueeScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.logo-marquee {
+  overflow: hidden;
+}
+
+.logo-marquee-track {
+  display: flex;
+  width: max-content; /* fits content width */
+  animation: marqueeScroll 28s linear infinite;
+  will-change: transform;
+}
+
+.logo-group {
+  display: flex;
+  gap: 1rem;
+}
+
+.brand-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  border-radius: 9999px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb; /* gray-200 */
+  color: #334155; /* slate-700 */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  transition: transform .2s ease, box-shadow .2s ease, color .2s ease, border-color .2s ease;
+}
+
+.brand-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+  border-color: #cbd5e1; /* slate-300 */
+  color: #0f172a; /* slate-900 */
+}
+
+.brand-name {
+  font-weight: 600;
+  letter-spacing: .2px;
+}
+
+/* Testimonials marquee */
+@keyframes reviewScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.review-marquee { overflow: hidden; }
+
+.review-track {
+  display: flex;
+  width: max-content;
+  animation: reviewScroll 50s linear infinite reverse;
+  will-change: transform;
+}
+
+.review-group { display: flex; gap: 1rem; }
+
+.review-card {
+  min-width: 320px;
+  max-width: 360px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb; /* gray-200 */
+  border-radius: 1rem; /* 16px */
+  padding: 1rem 1.25rem; /* 16px 20px */
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+}
+
+/* Simple auto-scrolling carousel for travel images */
+@keyframes carouselAuto {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.carousel-track {
+  animation: carouselAuto 30s linear infinite;
+}
+
